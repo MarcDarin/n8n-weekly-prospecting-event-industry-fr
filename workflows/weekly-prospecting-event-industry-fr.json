@@ -1,0 +1,2690 @@
+{
+  "name": "Weekly Prospecting – Event Industry France",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "id": "d1474b4b-c950-42f3-8b4a-e92f39b923aa",
+      "name": "Every Week – Monday 9AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        240,
+        624
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## ⚙️ 5 Steps to Activate\n\n**1. Apify** – Replace `YOUR_APIFY_TOKEN` in the 5 Apify nodes (apify.com/account/integrations)\n\n**2. Claude API** – Replace `YOUR_ANTHROPIC_API_KEY` in the Claude node (console.anthropic.com)\n\n**3. Google Sheets** – Create a sheet with 5 tabs:\n`Wedding Planners` · `Festivals` · `Event Managers` · `Théâtres` · `Jeunes Artistes`\nHeaders row: name, city, website, email, phone, rating, reviewsCount, address, googleMapsUrl, email_subject, email_body\nReplace `YOUR_SPREADSHEET_ID_HERE` + connect Google Sheets credential in all 5 GS nodes.\n\n**4. Dropcontact** – Replace the NoOp with Dropcontact node for email enrichment\n\n**5. Instantly.ai** – Replace the NoOp with HTTP Request to Instantly API",
+        "height": 440,
+        "width": 580,
+        "color": 4
+      },
+      "id": "191af8f7-1cc7-4ce4-907f-dadfd9c649e9",
+      "name": "⚠️ Setup Instructions",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1328,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/compass~crawler-google-places/runs",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "YOUR_APIFY_TOKEN"
+            },
+            {
+              "name": "waitForFinish",
+              "value": "300"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"searchStringsArray\":[\"wedding planner France\",\"organisateur mariage France\",\"wedding planner Paris\"],\"maxCrawledPlaces\":10,\"language\":\"fr\",\"countryCode\":\"fr\",\"maxCrawledPlacesPerSearch\":10}",
+        "options": {
+          "timeout": 360000
+        }
+      },
+      "id": "e231d0ec-c677-4a3d-860b-e0027ac1c129",
+      "name": "Apify – Wedding Planners",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        592,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/compass~crawler-google-places/runs",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "YOUR_APIFY_TOKEN"
+            },
+            {
+              "name": "waitForFinish",
+              "value": "300"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"searchStringsArray\":[\"festival musique France\",\"festival arts spectacle France\",\"festival événementiel France\"],\"maxCrawledPlaces\":10,\"language\":\"fr\",\"countryCode\":\"fr\",\"maxCrawledPlacesPerSearch\":10}",
+        "options": {
+          "timeout": 360000
+        }
+      },
+      "id": "4c9bae3d-7807-46b4-9af3-077e08a12481",
+      "name": "Apify – Festivals",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        592,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/compass~crawler-google-places/runs",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "YOUR_APIFY_TOKEN"
+            },
+            {
+              "name": "waitForFinish",
+              "value": "300"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"searchStringsArray\":[\"event manager France\",\"organisateur événements entreprise France\"],\"maxCrawledPlaces\":10,\"language\":\"fr\",\"countryCode\":\"fr\",\"maxCrawledPlacesPerSearch\":10}",
+        "options": {
+          "timeout": 360000
+        }
+      },
+      "id": "50527150-9d53-472e-9c0a-e2038f1ac029",
+      "name": "Apify – Event Managers",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        592,
+        608
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/compass~crawler-google-places/runs",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "YOUR_APIFY_TOKEN"
+            },
+            {
+              "name": "waitForFinish",
+              "value": "300"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"searchStringsArray\":[\"théâtre France\",\"salle de spectacle théâtre France\"],\"maxCrawledPlaces\":10,\"language\":\"fr\",\"countryCode\":\"fr\",\"maxCrawledPlacesPerSearch\":10}",
+        "options": {
+          "timeout": 360000
+        }
+      },
+      "id": "5eb7c125-3f7c-41b7-9c3b-04ca26865e54",
+      "name": "Apify – Théâtres",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        592,
+        832
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/compass~crawler-google-places/runs",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "YOUR_APIFY_TOKEN"
+            },
+            {
+              "name": "waitForFinish",
+              "value": "300"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"searchStringsArray\":[\"jeune artiste musicien France\",\"artiste musical émergent France\"],\"maxCrawledPlaces\":10,\"language\":\"fr\",\"countryCode\":\"fr\",\"maxCrawledPlacesPerSearch\":10}",
+        "options": {
+          "timeout": 360000
+        }
+      },
+      "id": "c0249894-504d-4434-9fd5-43c73f4eb4e6",
+      "name": "Apify – Jeunes Artistes",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        592,
+        1040
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nfunction extractCity(address) {\n  const parts = (address || '').split(',').map(s => s.trim()).filter(Boolean);\n  const cityPart = parts.length >= 2 ? parts[parts.length - 2] : (parts[0] || '');\n  return cityPart.replace(/^\\d{5}\\s*/, '').trim();\n}\n\nreturn items.map(item => {\n  const place = item.json;\n  return {\n    json: {\n      category: 'Wedding Planners',\n      name: place.title || '',\n      city: extractCity(place.address),\n      website: (place.website || '').trim(),\n      email: place.email || '',\n      phone: place.phone || place.phoneUnformatted || '',\n      rating: place.totalScore ?? null,\n      reviewsCount: place.reviewsCount || 0,\n      address: place.address || '',\n      googleMapsUrl: place.url || ''\n    }\n  };\n});"
+      },
+      "id": "8673fc52-710a-4d01-8571-e2789c5a30ab",
+      "name": "Process – Wedding Planners",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1072,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nfunction extractCity(address) {\n  const parts = (address || '').split(',').map(s => s.trim()).filter(Boolean);\n  const cityPart = parts.length >= 2 ? parts[parts.length - 2] : (parts[0] || '');\n  return cityPart.replace(/^\\d{5}\\s*/, '').trim();\n}\n\nreturn items.map(item => {\n  const place = item.json;\n  return {\n    json: {\n      category: 'Festivals',\n      name: place.title || '',\n      city: extractCity(place.address),\n      website: (place.website || '').trim(),\n      email: place.email || '',\n      phone: place.phone || place.phoneUnformatted || '',\n      rating: place.totalScore ?? null,\n      reviewsCount: place.reviewsCount || 0,\n      address: place.address || '',\n      googleMapsUrl: place.url || ''\n    }\n  };\n});"
+      },
+      "id": "d464dde9-ba28-4f81-9335-87789144cf94",
+      "name": "Process – Festivals",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1072,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nfunction extractCity(address) {\n  const parts = (address || '').split(',').map(s => s.trim()).filter(Boolean);\n  const cityPart = parts.length >= 2 ? parts[parts.length - 2] : (parts[0] || '');\n  return cityPart.replace(/^\\d{5}\\s*/, '').trim();\n}\n\nreturn items.map(item => {\n  const place = item.json;\n  return {\n    json: {\n      category: 'Event Managers',\n      name: place.title || '',\n      city: extractCity(place.address),\n      website: (place.website || '').trim(),\n      email: place.email || '',\n      phone: place.phone || place.phoneUnformatted || '',\n      rating: place.totalScore ?? null,\n      reviewsCount: place.reviewsCount || 0,\n      address: place.address || '',\n      googleMapsUrl: place.url || ''\n    }\n  };\n});"
+      },
+      "id": "d97b0396-1345-4046-b5e6-8e5c9722a727",
+      "name": "Process – Event Managers",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1072,
+        608
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nfunction extractCity(address) {\n  const parts = (address || '').split(',').map(s => s.trim()).filter(Boolean);\n  const cityPart = parts.length >= 2 ? parts[parts.length - 2] : (parts[0] || '');\n  return cityPart.replace(/^\\d{5}\\s*/, '').trim();\n}\n\nreturn items.map(item => {\n  const place = item.json;\n  return {\n    json: {\n      category: 'Théâtres',\n      name: place.title || '',\n      city: extractCity(place.address),\n      website: (place.website || '').trim(),\n      email: place.email || '',\n      phone: place.phone || place.phoneUnformatted || '',\n      rating: place.totalScore ?? null,\n      reviewsCount: place.reviewsCount || 0,\n      address: place.address || '',\n      googleMapsUrl: place.url || ''\n    }\n  };\n});"
+      },
+      "id": "27c84fed-8e47-4b75-b873-a3a5b3a93174",
+      "name": "Process – Théâtres",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1072,
+        832
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nfunction extractCity(address) {\n  const parts = (address || '').split(',').map(s => s.trim()).filter(Boolean);\n  const cityPart = parts.length >= 2 ? parts[parts.length - 2] : (parts[0] || '');\n  return cityPart.replace(/^\\d{5}\\s*/, '').trim();\n}\n\nreturn items.map(item => {\n  const place = item.json;\n  return {\n    json: {\n      category: 'Jeunes Artistes',\n      name: place.title || '',\n      city: extractCity(place.address),\n      website: (place.website || '').trim(),\n      email: place.email || '',\n      phone: place.phone || place.phoneUnformatted || '',\n      rating: place.totalScore ?? null,\n      reviewsCount: place.reviewsCount || 0,\n      address: place.address || '',\n      googleMapsUrl: place.url || ''\n    }\n  };\n});"
+      },
+      "id": "a8bdf3b7-0b06-42a5-ab7f-77cb94315834",
+      "name": "Process – Jeunes Artistes",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1072,
+        1040
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "394ee9c9-df77-415a-b5ea-7e3b7a5c6bd1",
+      "name": "Merge All Results",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1232,
+        624
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst seen  = new Set();\nconst result = [];\n\nfor (const item of items) {\n  const { website, phone } = item.json;\n  const normWeb   = website ? website.toLowerCase().replace(/^https?:\\/\\/(www\\.)?/, '').replace(/\\/$/, '') : null;\n  const normPhone = phone   ? phone.replace(/[\\s\\-\\.\\(\\)\\+]/g, '') : null;\n  const key = normWeb || normPhone;\n\n  if (!key || !seen.has(key)) {\n    if (key) seen.add(key);\n    result.push(item);\n  }\n}\nreturn result;"
+      },
+      "id": "6d3dfe95-808f-4dad-afc2-a197483c71ed",
+      "name": "Deduplicate",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2320,
+        624
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all();"
+      },
+      "id": "ff817234-7c0b-4488-96b0-0211a300cdc9",
+      "name": "Dropcontact – Email Enrichment ⚙️",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2608,
+        624
+      ]
+    },
+    {
+      "parameters": {
+        "content": "**Dropcontact placeholder**\nReplace with the Dropcontact node.\nEnriches professional emails using website + contact name.\nRun BEFORE AI personalisation so email_body can reference real contacts.",
+        "height": 130,
+        "width": 320,
+        "color": 3
+      },
+      "id": "e38296f1-bbfb-48d5-bb94-7a05951d2ca7",
+      "name": "Dropcontact Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1760,
+        768
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const painPoints = {\n  'Wedding Planners': {\n    angle:   'Sublimation cinématographique, discrétion sur les tournages',\n    accroche: \"J'ai adoré l'esthétique de votre dernier mariage. On aide les planners à transformer ces moments en films de cinéma.\",\n    regle:   \"Ne jamais dire 'production vidéo' — dire 'film de cinéma' ou 'contenu prestige'\"\n  },\n  'Festivals': {\n    angle:   'Fast-editing 24h, contenu vertical ultra-dynamique',\n    accroche: \"Votre programmation est folle. Avez-vous prévu du contenu vertical pour booster la billetterie en direct ?\",\n    regle:   \"Accent sur la rapidité de livraison (24h) et le FOMO — pas de jargon technique\"\n  },\n  'Event Managers': {\n    angle:   'Highlights RH, contenu de recrutement pour la marque employeur',\n    accroche: \"Des highlights afterwork que vos clients RH utilisent pour recruter.\",\n    regle:   \"Angle B2B marque employeur — montrer le ROI RH concret\"\n  },\n  'Théâtres': {\n    angle:   'Captation multi-caméras, teasers 30s pour réseaux et dossiers de subvention',\n    accroche: \"La mise en scène est superbe. Avez-vous une captation pro pour vos dossiers de presse ?\",\n    regle:   \"Mettre en avant les dossiers de subvention et la visibilité presse\"\n  },\n  'Jeunes Artistes': {\n    angle:   'Pack Visualizer / Short-content pour Spotify, Instagram, TikTok',\n    accroche: \"Ton dernier snippet mérite un visuel qui claque pour Spotify. Pack 3 Reels/Clips pour artistes en développement.\",\n    regle:   \"Ne JAMAIS dire 'production' — dire 'Visualizer', 'Pack Reels' ou 'contenu court'\"\n  }\n};\n\nconst items = $input.all();\nreturn items.map(item => {\n  const { category, name, city, website } = item.json;\n  const pp = painPoints[category] || painPoints['Event Managers'];\n\n  const prompt = `Tu es un commercial spécialisé en contenu vidéo pour le secteur événementiel (société Reflexmediacom).\n\nGénère un email de prospection froid en français pour ce prospect :\n- Nom / Structure : ${name}\n- Ville : ${city}\n- Site web : ${website || 'non communiqué'}\n- Catégorie : ${category}\n\nAngle de vente : ${pp.angle}\nAccroche de référence : \"${pp.accroche}\"\nRègle absolue : ${pp.regle}\n\nContraintes :\n- Maximum 120 mots\n- Ton direct, personnel, chaleureux — zéro formule corporative\n- Terminer par une question ouverte ou une invitation à un appel de 15 min\n- Objet email : accrocheur, sous 60 caractères, sans emoji\n\nRéponds UNIQUEMENT en JSON valide sans aucun autre texte : {\"subject\": \"...\", \"email_body\": \"...\"}`;\n\n  return { json: { ...item.json, ai_prompt: prompt } };\n});"
+      },
+      "id": "2afe958c-9c44-4c95-9ac6-efd67aa2ca04",
+      "name": "Build AI Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2880,
+        624
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst painPoints = {\n  'Wedding Planners': {\n    subject: 'Film de cinema pour votre prochain mariage',\n    body: 'Votre catalogue est magnifique. Nous transformons les plus beaux mariages en films prestige.\\n\\nSeriez-vous disponible 15 min cette semaine ?'\n  },\n  'Festivals': {\n    subject: 'Contenu vertical 24h pour booster votre billetterie',\n    body: 'Votre programmation est exceptionnelle. Nous livrons du fast-content vertical en 24h pour creer le FOMO et doper les ventes.\\n\\nUn appel rapide cette semaine ?'\n  },\n  'Event Managers': {\n    subject: 'Highlights RH qui recrutent pour vos clients',\n    body: 'Des afterworks filmes qui deviennent des outils de marque employeur. ROI direct sur le recrutement.\\n\\nOn en parle 15 min ?'\n  },\n  'Theatres': {\n    subject: 'Captation pro pour vos dossiers de subvention',\n    body: 'Votre mise en scene merite une captation multi-cameras de qualite. Ideal pour dossiers de presse et subventions.\\n\\nUn echange cette semaine ?'\n  },\n  'Jeunes Artistes': {\n    subject: 'Pack Visualizer 3 Reels pour votre prochain single',\n    body: 'Votre univers merite un contenu qui claque sur Spotify et Instagram. Pack 3 Reels/Clips pour artistes en developpement.\\n\\nOn en parle ?'\n  }\n};\nconst items = .all();\nreturn items.map(item => {\n  const cat = (item.json.category || 'Event Managers').replace('Theatres','Theatres').replace('Th\\u00e9\\u00e2tres','Theatres');\n  const pp = painPoints[cat] || painPoints['Event Managers'];\n  return {\n    json: {\n      content: [{ text: JSON.stringify({ subject: pp.subject, email_body: 'Bonjour,\\n\\n' + pp.body }) }]\n    }\n  };\n});\n"
+      },
+      "id": "b9515686-f5b0-4cda-a442-72d2d3dd03f4",
+      "name": "Claude – Email Personalisation",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3168,
+        624
+      ]
+    },
+    {
+      "parameters": {
+        "content": "**Claude (Anthropic) – Email Personalisation**\n\nGenerates a pain-point email (subject + body) per lead.\nCost: ~€0.003/lead · ~€1.50 for 500 leads\n\nReplace `YOUR_ANTHROPIC_API_KEY` with your key from console.anthropic.com",
+        "height": 140,
+        "width": 340,
+        "color": 2
+      },
+      "id": "2183af89-b68d-4e42-b198-8b2f3319ffac",
+      "name": "Claude API Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2320,
+        768
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const claudeItems = $input.all();\nconst originalItems = $('Build AI Prompt').all();\n\nreturn claudeItems.map((item, i) => {\n  const original = originalItems[i]?.json || {};\n  const { ai_prompt, ...leadData } = original;\n\n  let emailData = { subject: '', email_body: '' };\n  try {\n    const rawText =\n      item.json?.content?.[0]?.text ||\n      item.json?.body?.content?.[0]?.text || '';\n    const match = rawText.match(/\\{[\\s\\S]*?\"subject\"[\\s\\S]*?\\}/);\n    if (match) emailData = JSON.parse(match[0]);\n  } catch (e) {\n    emailData = { subject: 'Parse error', email_body: '' };\n  }\n\n  return {\n    json: {\n      ...leadData,\n      email_subject: emailData.subject   || '',\n      email_body:    emailData.email_body || ''\n    }\n  };\n});"
+      },
+      "id": "e847a635-46a8-48b1-8739-5d8920a7fa78",
+      "name": "Parse & Merge AI Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3440,
+        624
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.category }}",
+                    "rightValue": "Wedding Planners",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Wedding Planners"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.category }}",
+                    "rightValue": "Festivals",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Festivals"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.category }}",
+                    "rightValue": "Event Managers",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Event Managers"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.category }}",
+                    "rightValue": "Théâtres",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Théâtres"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.category }}",
+                    "rightValue": "Jeunes Artistes",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Jeunes Artistes"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5f72bee4-4aa3-4eb9-8f89-e30409df4de0",
+      "name": "Route by Category",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        3744,
+        576
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "1PAa7_TPMmkqvll6v7P2WOahs2oAV_B55ZwWx5yRP9jk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Wedding Planners"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "nom_entreprise": "={{ $json.name }}",
+            "ville": "={{ $json.city }}",
+            "telephone": "={{ $json.phone }}",
+            "site_web": "={{ $json.website }}",
+            "email": "={{ $json.email }}",
+            "note_google": "={{ $json.rating }}",
+            "nb_avis": "={{ $json.reviewsCount }}",
+            "statut": "A contacter",
+            "date_ajout": "={{ new Date().toISOString().split(\"T\")[0] }}",
+            "canal_recommande": "Email",
+            "angle_approche": "={{ $json.email_subject }}",
+            "source": "Google Maps"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "nom_entreprise",
+              "displayName": "nom_entreprise",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ville",
+              "displayName": "ville",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "telephone",
+              "displayName": "telephone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "site_web",
+              "displayName": "site_web",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "note_google",
+              "displayName": "note_google",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "nb_avis",
+              "displayName": "nb_avis",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "statut",
+              "displayName": "statut",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "date_ajout",
+              "displayName": "date_ajout",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "canal_recommande",
+              "displayName": "canal_recommande",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "angle_approche",
+              "displayName": "angle_approche",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "10dfdc1e-3a68-43b3-a1fd-129960211606",
+      "name": "Google Sheets – Wedding Planners",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        4272,
+        112
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "yzMUkn0n3q7ZR8j2",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "1PAa7_TPMmkqvll6v7P2WOahs2oAV_B55ZwWx5yRP9jk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Festivals"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "nom_entreprise": "={{ $json.name }}",
+            "ville": "={{ $json.city }}",
+            "telephone": "={{ $json.phone }}",
+            "site_web": "={{ $json.website }}",
+            "email": "={{ $json.email }}",
+            "note_google": "={{ $json.rating }}",
+            "nb_avis": "={{ $json.reviewsCount }}",
+            "statut": "A contacter",
+            "date_ajout": "={{ new Date().toISOString().split(\"T\")[0] }}",
+            "canal_recommande": "Email",
+            "angle_approche": "={{ $json.email_subject }}",
+            "source": "Google Maps"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "nom_entreprise",
+              "displayName": "nom_entreprise",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ville",
+              "displayName": "ville",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "telephone",
+              "displayName": "telephone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "site_web",
+              "displayName": "site_web",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "note_google",
+              "displayName": "note_google",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "nb_avis",
+              "displayName": "nb_avis",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "statut",
+              "displayName": "statut",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "date_ajout",
+              "displayName": "date_ajout",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "canal_recommande",
+              "displayName": "canal_recommande",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "angle_approche",
+              "displayName": "angle_approche",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a8bfc91e-5e8d-4cfc-957c-c83a16599dc9",
+      "name": "Google Sheets – Festivals",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        4272,
+        336
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "yzMUkn0n3q7ZR8j2",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "1PAa7_TPMmkqvll6v7P2WOahs2oAV_B55ZwWx5yRP9jk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Event Managers"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "nom_entreprise": "={{ $json.name }}",
+            "ville": "={{ $json.city }}",
+            "telephone": "={{ $json.phone }}",
+            "site_web": "={{ $json.website }}",
+            "email": "={{ $json.email }}",
+            "note_google": "={{ $json.rating }}",
+            "nb_avis": "={{ $json.reviewsCount }}",
+            "statut": "A contacter",
+            "date_ajout": "={{ new Date().toISOString().split(\"T\")[0] }}",
+            "canal_recommande": "Email",
+            "angle_approche": "={{ $json.email_subject }}",
+            "source": "Google Maps"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "nom_entreprise",
+              "displayName": "nom_entreprise",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ville",
+              "displayName": "ville",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "telephone",
+              "displayName": "telephone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "site_web",
+              "displayName": "site_web",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "note_google",
+              "displayName": "note_google",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "nb_avis",
+              "displayName": "nb_avis",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "statut",
+              "displayName": "statut",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "date_ajout",
+              "displayName": "date_ajout",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "canal_recommande",
+              "displayName": "canal_recommande",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "angle_approche",
+              "displayName": "angle_approche",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a6042604-20b3-43c9-829e-1d2f4f00f509",
+      "name": "Google Sheets – Event Managers",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        4272,
+        560
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "yzMUkn0n3q7ZR8j2",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "1PAa7_TPMmkqvll6v7P2WOahs2oAV_B55ZwWx5yRP9jk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Théâtres"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "nom_entreprise": "={{ $json.name }}",
+            "ville": "={{ $json.city }}",
+            "telephone": "={{ $json.phone }}",
+            "site_web": "={{ $json.website }}",
+            "email": "={{ $json.email }}",
+            "note_google": "={{ $json.rating }}",
+            "nb_avis": "={{ $json.reviewsCount }}",
+            "statut": "A contacter",
+            "date_ajout": "={{ new Date().toISOString().split(\"T\")[0] }}",
+            "canal_recommande": "Email",
+            "angle_approche": "={{ $json.email_subject }}",
+            "source": "Google Maps"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "nom_entreprise",
+              "displayName": "nom_entreprise",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ville",
+              "displayName": "ville",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "telephone",
+              "displayName": "telephone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "site_web",
+              "displayName": "site_web",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "note_google",
+              "displayName": "note_google",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "nb_avis",
+              "displayName": "nb_avis",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "statut",
+              "displayName": "statut",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "date_ajout",
+              "displayName": "date_ajout",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "canal_recommande",
+              "displayName": "canal_recommande",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "angle_approche",
+              "displayName": "angle_approche",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "682d17f0-1ac2-4de8-aada-6400e5583413",
+      "name": "Google Sheets – Théâtres",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        4272,
+        784
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "yzMUkn0n3q7ZR8j2",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "1PAa7_TPMmkqvll6v7P2WOahs2oAV_B55ZwWx5yRP9jk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Jeunes Artistes"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "nom_entreprise": "={{ $json.name }}",
+            "ville": "={{ $json.city }}",
+            "telephone": "={{ $json.phone }}",
+            "site_web": "={{ $json.website }}",
+            "email": "={{ $json.email }}",
+            "note_google": "={{ $json.rating }}",
+            "nb_avis": "={{ $json.reviewsCount }}",
+            "statut": "A contacter",
+            "date_ajout": "={{ new Date().toISOString().split(\"T\")[0] }}",
+            "canal_recommande": "Email",
+            "angle_approche": "={{ $json.email_subject }}",
+            "source": "Google Maps"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "nom_entreprise",
+              "displayName": "nom_entreprise",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ville",
+              "displayName": "ville",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "telephone",
+              "displayName": "telephone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "site_web",
+              "displayName": "site_web",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "note_google",
+              "displayName": "note_google",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "nb_avis",
+              "displayName": "nb_avis",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "statut",
+              "displayName": "statut",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "date_ajout",
+              "displayName": "date_ajout",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "canal_recommande",
+              "displayName": "canal_recommande",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "angle_approche",
+              "displayName": "angle_approche",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e82133a3-403f-4637-ba77-02c94a9596cb",
+      "name": "Google Sheets – Jeunes Artistes",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        4272,
+        992
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "yzMUkn0n3q7ZR8j2",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "**Instantly.ai – Outreach**\n\nReplace with HTTP Request to Instantly API.\n4 campaigns · 3-email sequence: J+0, J+3, J+7\n\nSequence:\n• Email 1: Pain Point accroche (AI generated)\n• Email 2: Preuve sociale + réalisation\n• Email 3: CTA doux (appel 15 min)",
+        "height": 180,
+        "width": 340,
+        "color": 3
+      },
+      "id": "41748d28-c29d-4270-8533-4c2dda36ecbc",
+      "name": "Instantly Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3760,
+        704
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://api.apify.com/v2/datasets/{{ $json.data.defaultDatasetId }}/items",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "YOUR_APIFY_TOKEN"
+            },
+            {
+              "name": "limit",
+              "value": "200"
+            },
+            {
+              "name": "fields",
+              "value": "title,address,website,phone,phoneUnformatted,email,totalScore,reviewsCount,url"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fa01b2c3-d4e5-4789-aabc-def012345601",
+      "name": "Fetch Results – Wedding Planners",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        832,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://api.apify.com/v2/datasets/{{ $json.data.defaultDatasetId }}/items",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "YOUR_APIFY_TOKEN"
+            },
+            {
+              "name": "limit",
+              "value": "200"
+            },
+            {
+              "name": "fields",
+              "value": "title,address,website,phone,phoneUnformatted,email,totalScore,reviewsCount,url"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fb01b2c3-d4e5-4789-aabc-def012345602",
+      "name": "Fetch Results – Festivals",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        832,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://api.apify.com/v2/datasets/{{ $json.data.defaultDatasetId }}/items",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "YOUR_APIFY_TOKEN"
+            },
+            {
+              "name": "limit",
+              "value": "200"
+            },
+            {
+              "name": "fields",
+              "value": "title,address,website,phone,phoneUnformatted,email,totalScore,reviewsCount,url"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fc01b2c3-d4e5-4789-aabc-def012345603",
+      "name": "Fetch Results – Event Managers",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        832,
+        608
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://api.apify.com/v2/datasets/{{ $json.data.defaultDatasetId }}/items",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "YOUR_APIFY_TOKEN"
+            },
+            {
+              "name": "limit",
+              "value": "200"
+            },
+            {
+              "name": "fields",
+              "value": "title,address,website,phone,phoneUnformatted,email,totalScore,reviewsCount,url"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fd01b2c3-d4e5-4789-aabc-def012345604",
+      "name": "Fetch Results – Théâtres",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        832,
+        832
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://api.apify.com/v2/datasets/{{ $json.data.defaultDatasetId }}/items",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "YOUR_APIFY_TOKEN"
+            },
+            {
+              "name": "limit",
+              "value": "200"
+            },
+            {
+              "name": "fields",
+              "value": "title,address,website,phone,phoneUnformatted,email,totalScore,reviewsCount,url"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fe01b2c3-d4e5-4789-aabc-def012345605",
+      "name": "Fetch Results – Jeunes Artistes",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        832,
+        1040
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 🔗 PhantomBuster LinkedIn Scraping\n\n**Active while Apify has no credits.**\n\n**Setup (one-time):**\n1. Create account at phantombuster.com (free tier: 2h/month)\n2. Add phantom: **LinkedIn Search Export**\n3. Configure search queries:\n   - Event Managers: `\"event manager\" OR \"directeur événementiel\" France`\n   - Théâtres: `\"directeur théâtre\" OR \"programmateur\" France`\n4. Add your LinkedIn session cookie to the phantom\n5. Copy the Phantom Agent ID (from URL in PB dashboard)\n6. Replace in nodes:\n   - `YOUR_PHANTOMBUSTER_API_KEY` → from phantombuster.com/api-dashboard\n   - `YOUR_PHANTOM_ID_EVENT_MANAGERS` → your phantom ID\n   - `YOUR_PHANTOM_ID_THEATRES` → your phantom ID\n\n**When Apify is recharged:** Both Apify + PB lanes will run — deduplication handles overlaps.",
+        "height": 380,
+        "width": 500,
+        "color": 6
+      },
+      "id": "pb-note-001",
+      "name": "PhantomBuster Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1552,
+        1152
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.phantombuster.com/api/v2/agents/launch",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Phantombuster-Key",
+              "value": "YOUR_PHANTOMBUSTER_API_KEY"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"id\":\"YOUR_PHANTOM_ID_EVENT_MANAGERS\",\"argument\":{\"searches\":[\"Responsable Événementiel France\",\"Chief Happiness Officer France\",\"Event Planner Corporate France\",\"Directeur Communication événementiel France\",\"Organisateur salons France\",\"Responsable Sponsoring France\",\"Chargé projet Incentive France\"],\"numberOfProfiles\":10,\"filters\":{\"type\":\"people\",\"companyHeadcount\":\"51-200,201-500,501-1000,1001-5000,5001-10000,10001+\"},\"csvName\":\"event_managers_linkedin\"}}",
+        "options": {}
+      },
+      "id": "pb-launch-em-001",
+      "name": "PhantomBuster – Launch LinkedIn – Event Managers",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        592,
+        1264
+      ]
+    },
+    {
+      "parameters": {
+        "amount": 3,
+        "unit": "minutes"
+      },
+      "id": "pb-wait-em-001",
+      "name": "Wait 3min – PB Event Managers",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        752,
+        1264
+      ],
+      "webhookId": "dda4bf51-c9c0-4808-a721-54d16b6aa6da"
+    },
+    {
+      "parameters": {
+        "url": "https://api.phantombuster.com/api/v2/agents/fetch-output",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "id",
+              "value": "YOUR_PHANTOM_ID_EVENT_MANAGERS"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Phantombuster-Key",
+              "value": "YOUR_PHANTOMBUSTER_API_KEY"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "pb-fetch-em-001",
+      "name": "PhantomBuster – Fetch Results – Event Managers",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        912,
+        1264
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nlet profiles = [];\nfor (const item of items) {\n  const raw = item.json?.output || item.json;\n  try {\n    const parsed = typeof raw === 'string' ? JSON.parse(raw) : (Array.isArray(raw) ? raw : [raw]);\n    profiles = profiles.concat(parsed);\n  } catch(e) {}\n}\n\nfunction extractCity(location) {\n  if (!location) return '';\n  const parts = location.split(',').map(s => s.trim());\n  return parts[0] || '';\n}\n\nreturn profiles.map(p => ({\n  json: {\n    category: 'Event Managers',\n    name: p.company || p.fullName || '',\n    city: extractCity(p.location),\n    website: p.companyUrl || '',\n    email: p.email || '',\n    phone: '',\n    rating: null,\n    reviewsCount: 0,\n    address: p.location || '',\n    googleMapsUrl: '',\n    contactName: p.fullName || '',\n    contactLinkedIn: p.profileUrl || p.linkedInProfileUrl || '',\n    contactTitle: p.title || '',\n    source: 'LinkedIn / PhantomBuster'\n  }\n}));"
+      },
+      "id": "pb-process-em-001",
+      "name": "Process – PB Event Managers",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1072,
+        1264
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.phantombuster.com/api/v2/agents/launch",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Phantombuster-Key",
+              "value": "YOUR_PHANTOMBUSTER_API_KEY"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"id\":\"YOUR_PHANTOM_ID_THEATRES\",\"argument\":{\"searches\":[\"Directeur Théâtre France\",\"Chargé Diffusion spectacle France\",\"Directeur Artistique théâtre France\",\"Responsable Programmation culturelle France\",\"Administrateur spectacle vivant France\",\"Relations Publiques Culture France\"],\"numberOfProfiles\":10,\"filters\":{\"type\":\"people\"},\"companyKeywords\":[\"Théâtre\",\"Scène Nationale\",\"Centre Dramatique\",\"Opéra\",\"Philharmonie\"],\"csvName\":\"theatres_linkedin\"}}",
+        "options": {}
+      },
+      "id": "pb-launch-th-001",
+      "name": "PhantomBuster – Launch LinkedIn – Théâtres",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        592,
+        1488
+      ]
+    },
+    {
+      "parameters": {
+        "amount": 3,
+        "unit": "minutes"
+      },
+      "id": "pb-wait-th-001",
+      "name": "Wait 3min – PB Théâtres",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        752,
+        1488
+      ],
+      "webhookId": "d39dd973-6beb-4057-9700-bd29020691b2"
+    },
+    {
+      "parameters": {
+        "url": "https://api.phantombuster.com/api/v2/agents/fetch-output",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "id",
+              "value": "YOUR_PHANTOM_ID_THEATRES"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Phantombuster-Key",
+              "value": "YOUR_PHANTOMBUSTER_API_KEY"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "pb-fetch-th-001",
+      "name": "PhantomBuster – Fetch Results – Théâtres",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        912,
+        1488
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nlet profiles = [];\nfor (const item of items) {\n  const raw = item.json?.output || item.json;\n  try {\n    const parsed = typeof raw === 'string' ? JSON.parse(raw) : (Array.isArray(raw) ? raw : [raw]);\n    profiles = profiles.concat(parsed);\n  } catch(e) {}\n}\n\nfunction extractCity(location) {\n  if (!location) return '';\n  const parts = location.split(',').map(s => s.trim());\n  return parts[0] || '';\n}\n\nreturn profiles.map(p => ({\n  json: {\n    category: 'Théâtres',\n    name: p.company || p.fullName || '',\n    city: extractCity(p.location),\n    website: p.companyUrl || '',\n    email: p.email || '',\n    phone: '',\n    rating: null,\n    reviewsCount: 0,\n    address: p.location || '',\n    googleMapsUrl: '',\n    contactName: p.fullName || '',\n    contactLinkedIn: p.profileUrl || p.linkedInProfileUrl || '',\n    contactTitle: p.title || '',\n    source: 'LinkedIn / PhantomBuster'\n  }\n}));"
+      },
+      "id": "pb-process-th-001",
+      "name": "Process – PB Théâtres",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1072,
+        1488
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.instantly.ai/api/v1/lead/add",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_INSTANTLY_API_KEY=="
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"email\":\"={{ $json.email }}\",\"first_name\":\"={{ $json.first_name }}\",\"company_name\":\"={{ $json.company_name }}\",\"campaign_id\":\"ab282fe6-5904-4b06-81c7-382e69d637f6\"}",
+        "options": {}
+      },
+      "id": "ba25ab24-6edc-4779-a8b3-fba36c985841",
+      "name": "Instantly – Wedding Planners",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4592,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.instantly.ai/api/v1/lead/add",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_INSTANTLY_API_KEY=="
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"email\":\"={{ $json.email }}\",\"first_name\":\"={{ $json.first_name }}\",\"company_name\":\"={{ $json.company_name }}\",\"campaign_id\":\"bbc2c519-5bb3-4d97-b57c-5fdafd96efe2\"}",
+        "options": {}
+      },
+      "id": "3591d52f-4f95-4afc-866a-854ec2bb92c1",
+      "name": "Instantly – Festivals",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4592,
+        336
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.instantly.ai/api/v1/lead/add",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_INSTANTLY_API_KEY=="
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"email\":\"={{ $json.email }}\",\"first_name\":\"={{ $json.first_name }}\",\"company_name\":\"={{ $json.company_name }}\",\"campaign_id\":\"f720b51b-12e8-48d2-8c22-b7165ab20362\"}",
+        "options": {}
+      },
+      "id": "c5fc4974-a1a5-4eb7-b81b-d62c026620a9",
+      "name": "Instantly – Event Managers",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4592,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.instantly.ai/api/v1/lead/add",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_INSTANTLY_API_KEY=="
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"email\":\"={{ $json.email }}\",\"first_name\":\"={{ $json.first_name }}\",\"company_name\":\"={{ $json.company_name }}\",\"campaign_id\":\"3dab9d87-91c0-4ee6-85b4-d7484387abc4\"}",
+        "options": {}
+      },
+      "id": "04eb8603-ebe8-453a-8285-45452d519b72",
+      "name": "Instantly – Théâtres",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4592,
+        784
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.instantly.ai/api/v1/lead/add",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_INSTANTLY_API_KEY=="
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"email\":\"={{ $json.email }}\",\"first_name\":\"={{ $json.first_name }}\",\"company_name\":\"={{ $json.company_name }}\",\"campaign_id\":\"3aeb5917-871a-4cda-bfb2-d7bdb0feee13\"}",
+        "options": {}
+      },
+      "id": "27bee42e-4b78-4e2e-aa1b-1ac6edddd4d8",
+      "name": "Instantly – Jeunes Artistes",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4592,
+        992
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "c75334e3-7f81-42c1-b458-5c4f575a74fd",
+      "name": "Instantly.ai – Outreach ⚙️",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        6192,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst EMAIL_RE = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}/g;\nconst IGNORE = ['example', 'your@', 'email@', 'test@', 'noreply', 'no-reply', '.png', '.jpg', '.gif', '.svg'];\nconst PATHS = ['/contact', '/nous-contacter', '/contact-us', '/a-propos', '/'];\n\nfunction extractEmail(html) {\n  if (!html || typeof html !== 'string') return '';\n  // Priority 1 : mailto:\n  const mailtoMatch = html.match(/mailto:([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})/i);\n  if (mailtoMatch) {\n    const e = mailtoMatch[1];\n    if (!IGNORE.some(bad => e.toLowerCase().includes(bad))) return e;\n  }\n  // Priority 2 : regex\n  const matches = html.match(EMAIL_RE) || [];\n  return matches.find(e => !IGNORE.some(bad => e.toLowerCase().includes(bad))) || '';\n}\n\nconst result = [];\nfor (const item of items) {\n  const base = (item.json.website || '').replace(/\\/$/, '');\n  let scrapedHtml = '';\n  if (base) {\n    for (const path of PATHS) {\n      try {\n        const html = await $helpers.request({ method: 'GET', url: base + path, timeout: 10000, simple: false });\n        if (typeof html === 'string') {\n          scrapedHtml = html;\n          if (extractEmail(html)) break;\n        }\n      } catch (e) { /* skip */ }\n    }\n  }\n  result.push({ json: { ...item.json, scrapedHtml } });\n}\nreturn result;"
+      },
+      "id": "scrape-contact-001",
+      "name": "Scrape Contact Page",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1504,
+        624
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst EMAIL_RE = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}/g;\nconst IGNORE = ['example', 'your@', 'email@', 'test@', 'noreply', 'no-reply', '.png', '.jpg', '.gif', '.svg'];\n\nfunction extractEmail(html) {\n  if (!html || typeof html !== 'string') return '';\n  const matches = html.match(EMAIL_RE) || [];\n  return matches.find(e => !IGNORE.some(bad => e.toLowerCase().includes(bad))) || '';\n}\n\nconst result = [];\nfor (const item of items) {\n  const existing = item.json.email || '';\n  const scraped  = extractEmail(item.json.scrapedHtml);\n  const email    = existing || scraped;\n\n  if (!email) continue; // filter out leads with no email\n\n  const { scrapedHtml, ...lead } = item.json;\n  result.push({ json: { ...lead, email } });\n}\nreturn result;"
+      },
+      "id": "extract-email-001",
+      "name": "Extract & Filter Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2048,
+        624
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/apify~instagram-profile-scraper/runs",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "YOUR_APIFY_TOKEN"
+            },
+            {
+              "name": "waitForFinish",
+              "value": "300"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"usernames\":[\"wedding_planner_france\"],\"resultsLimit\":10}",
+        "options": {
+          "timeout": 360000
+        }
+      },
+      "id": "apify-ig-wp-001",
+      "name": "Apify – Instagram Wedding Planners",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        592,
+        1264
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://api.apify.com/v2/datasets/{{ $json.data.defaultDatasetId }}/items",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "YOUR_APIFY_TOKEN"
+            },
+            {
+              "name": "limit",
+              "value": "200"
+            },
+            {
+              "name": "fields",
+              "value": "username,biography,followersCount,externalUrl"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fetch-ig-wp-001",
+      "name": "Fetch Results – Instagram Wedding Planners",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        832,
+        1264
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst EMAIL_RE = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}/g;\nconst IGNORE = ['example', 'your@', 'email@', 'test@', 'noreply', 'no-reply'];\n\nreturn items.map(item => {\n  const p = item.json;\n  const bio = p.biography || p.bio || '';\n  const matches = bio.match(EMAIL_RE) || [];\n  const email = matches.find(e => !IGNORE.some(bad => e.toLowerCase().includes(bad))) || '';\n  return {\n    json: {\n      category: 'Wedding Planners',\n      source: 'Instagram',\n      name: p.username || '',\n      bio,\n      email,\n      followersCount: p.followersCount || 0,\n      website: p.externalUrl || '',\n      phone: '',\n      rating: null,\n      reviewsCount: 0,\n      city: '',\n      address: '',\n      googleMapsUrl: ''\n    }\n  };\n});"
+      },
+      "id": "process-ig-wp-001",
+      "name": "Process – Instagram Wedding Planners",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1072,
+        1264
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/apify~instagram-hashtag-scraper/runs",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "YOUR_APIFY_TOKEN"
+            },
+            {
+              "name": "waitForFinish",
+              "value": "300"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"hashtags\":[\"nouveausingle\",\"clipbientot\",\"studioflow\",\"indieartist\",\"freestylevibe\"],\"resultsLimit\":10}",
+        "options": {
+          "timeout": 360000
+        }
+      },
+      "id": "apify-ig-ja-001",
+      "name": "Apify – Instagram Jeunes Artistes",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        592,
+        1488
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://api.apify.com/v2/datasets/{{ $json.data.defaultDatasetId }}/items",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "YOUR_APIFY_TOKEN"
+            },
+            {
+              "name": "limit",
+              "value": "200"
+            },
+            {
+              "name": "fields",
+              "value": "username,biography,followersCount,externalUrl"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fetch-ig-ja-001",
+      "name": "Fetch Results – Instagram Jeunes Artistes",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        832,
+        1488
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst EMAIL_RE = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}/g;\nconst IGNORE = ['example', 'your@', 'email@', 'test@', 'noreply', 'no-reply'];\n\nconst seen = new Set();\nconst result = [];\n\nfor (const item of items) {\n  const p = item.json;\n  const username = p.username || p.ownerUsername || '';\n  if (!username || seen.has(username)) continue;\n  const followers = p.followersCount || 0;\n  if (followers < 2000 || followers > 15000) continue;\n  seen.add(username);\n  const bio = p.biography || p.bio || '';\n  const matches = bio.match(EMAIL_RE) || [];\n  const email = matches.find(e => !IGNORE.some(bad => e.toLowerCase().includes(bad))) || '';\n  result.push({\n    json: {\n      category: 'Jeunes Artistes',\n      source: 'Instagram',\n      name: username,\n      bio,\n      email,\n      followers,\n      website: p.externalUrl || '',\n      phone: '',\n      rating: null,\n      reviewsCount: 0,\n      city: '',\n      address: '',\n      googleMapsUrl: ''\n    }\n  });\n}\nreturn result;"
+      },
+      "id": "process-ig-ja-001",
+      "name": "Process – Instagram Jeunes Artistes",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1072,
+        1488
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/apify~instagram-search-scraper/runs",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "YOUR_APIFY_TOKEN"
+            },
+            {
+              "name": "waitForFinish",
+              "value": "300"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"searchQueries\":[\"Wedding Planner Luxe\",\"Destination Wedding France\",\"Organisation mariage de prestige\",\"Wedding Designer\"],\"resultsLimit\":10}",
+        "options": {
+          "timeout": 360000
+        }
+      },
+      "id": "apify-ig-wps-001",
+      "name": "Apify – Instagram WP Search",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        592,
+        1712
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://api.apify.com/v2/datasets/{{ $json.data.defaultDatasetId }}/items",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "YOUR_APIFY_TOKEN"
+            },
+            {
+              "name": "limit",
+              "value": "200"
+            },
+            {
+              "name": "fields",
+              "value": "username,biography,followersCount,externalUrl"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fetch-ig-wps-001",
+      "name": "Fetch Results – Instagram WP Search",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        832,
+        1712
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst EMAIL_RE = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}/g;\nconst IGNORE = ['example', 'your@', 'email@', 'test@', 'noreply', 'no-reply'];\n\nconst seen = new Set();\nconst result = [];\n\nfor (const item of items) {\n  const p = item.json;\n  const username = p.username || p.ownerUsername || '';\n  if (!username || seen.has(username)) continue;\n  const followers = p.followersCount || 0;\n  if (followers < 2000 || followers > 50000) continue;\n  seen.add(username);\n  const bio = p.biography || p.bio || '';\n  const matches = bio.match(EMAIL_RE) || [];\n  const email = matches.find(e => !IGNORE.some(bad => e.toLowerCase().includes(bad))) || '';\n  result.push({\n    json: {\n      category: 'Wedding Planners',\n      source: 'Instagram',\n      name: username,\n      bio,\n      email,\n      followers,\n      website: p.externalUrl || '',\n      phone: '',\n      rating: null,\n      reviewsCount: 0,\n      city: '',\n      address: '',\n      googleMapsUrl: ''\n    }\n  });\n}\nreturn result;"
+      },
+      "id": "process-ig-wps-001",
+      "name": "Process – Instagram WP Search",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1072,
+        1712
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Every Week – Monday 9AM": {
+      "main": [
+        [
+          {
+            "node": "Apify – Wedding Planners",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Apify – Festivals",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Apify – Event Managers",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Apify – Théâtres",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Apify – Jeunes Artistes",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "PhantomBuster – Launch LinkedIn – Event Managers",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "PhantomBuster – Launch LinkedIn – Théâtres",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Apify – Instagram Wedding Planners",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Apify – Instagram Jeunes Artistes",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Apify – Instagram WP Search",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Apify – Wedding Planners": {
+      "main": [
+        [
+          {
+            "node": "Fetch Results – Wedding Planners",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Apify – Festivals": {
+      "main": [
+        [
+          {
+            "node": "Fetch Results – Festivals",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Apify – Event Managers": {
+      "main": [
+        [
+          {
+            "node": "Fetch Results – Event Managers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Apify – Théâtres": {
+      "main": [
+        [
+          {
+            "node": "Fetch Results – Théâtres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Apify – Jeunes Artistes": {
+      "main": [
+        [
+          {
+            "node": "Fetch Results – Jeunes Artistes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process – Wedding Planners": {
+      "main": [
+        [
+          {
+            "node": "Merge All Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process – Festivals": {
+      "main": [
+        [
+          {
+            "node": "Merge All Results",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Process – Event Managers": {
+      "main": [
+        [
+          {
+            "node": "Merge All Results",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Process – Théâtres": {
+      "main": [
+        [
+          {
+            "node": "Merge All Results",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Process – Jeunes Artistes": {
+      "main": [
+        [
+          {
+            "node": "Merge All Results",
+            "type": "main",
+            "index": 4
+          }
+        ]
+      ]
+    },
+    "Merge All Results": {
+      "main": [
+        [
+          {
+            "node": "Scrape Contact Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deduplicate": {
+      "main": [
+        [
+          {
+            "node": "Dropcontact – Email Enrichment ⚙️",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dropcontact – Email Enrichment ⚙️": {
+      "main": [
+        [
+          {
+            "node": "Build AI Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build AI Prompt": {
+      "main": [
+        [
+          {
+            "node": "Claude – Email Personalisation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude – Email Personalisation": {
+      "main": [
+        [
+          {
+            "node": "Parse & Merge AI Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse & Merge AI Response": {
+      "main": [
+        [
+          {
+            "node": "Route by Category",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route by Category": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets – Wedding Planners",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Google Sheets – Festivals",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Google Sheets – Event Managers",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Google Sheets – Théâtres",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Google Sheets – Jeunes Artistes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets – Wedding Planners": {
+      "main": [
+        [
+          {
+            "node": "Instantly – Wedding Planners",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets – Festivals": {
+      "main": [
+        [
+          {
+            "node": "Instantly – Festivals",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets – Event Managers": {
+      "main": [
+        [
+          {
+            "node": "Instantly – Event Managers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets – Théâtres": {
+      "main": [
+        [
+          {
+            "node": "Instantly – Théâtres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets – Jeunes Artistes": {
+      "main": [
+        [
+          {
+            "node": "Instantly – Jeunes Artistes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Results – Wedding Planners": {
+      "main": [
+        [
+          {
+            "node": "Process – Wedding Planners",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Results – Festivals": {
+      "main": [
+        [
+          {
+            "node": "Process – Festivals",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Results – Event Managers": {
+      "main": [
+        [
+          {
+            "node": "Process – Event Managers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Results – Théâtres": {
+      "main": [
+        [
+          {
+            "node": "Process – Théâtres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Results – Jeunes Artistes": {
+      "main": [
+        [
+          {
+            "node": "Process – Jeunes Artistes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PhantomBuster – Launch LinkedIn – Event Managers": {
+      "main": [
+        [
+          {
+            "node": "Wait 3min – PB Event Managers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 3min – PB Event Managers": {
+      "main": [
+        [
+          {
+            "node": "PhantomBuster – Fetch Results – Event Managers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PhantomBuster – Fetch Results – Event Managers": {
+      "main": [
+        [
+          {
+            "node": "Process – PB Event Managers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process – PB Event Managers": {
+      "main": [
+        [
+          {
+            "node": "Merge All Results",
+            "type": "main",
+            "index": 5
+          }
+        ]
+      ]
+    },
+    "PhantomBuster – Launch LinkedIn – Théâtres": {
+      "main": [
+        [
+          {
+            "node": "Wait 3min – PB Théâtres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 3min – PB Théâtres": {
+      "main": [
+        [
+          {
+            "node": "PhantomBuster – Fetch Results – Théâtres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PhantomBuster – Fetch Results – Théâtres": {
+      "main": [
+        [
+          {
+            "node": "Process – PB Théâtres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process – PB Théâtres": {
+      "main": [
+        [
+          {
+            "node": "Merge All Results",
+            "type": "main",
+            "index": 6
+          }
+        ]
+      ]
+    },
+    "Scrape Contact Page": {
+      "main": [
+        [
+          {
+            "node": "Extract & Filter Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract & Filter Email": {
+      "main": [
+        [
+          {
+            "node": "Deduplicate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Apify – Instagram Wedding Planners": {
+      "main": [
+        [
+          {
+            "node": "Fetch Results – Instagram Wedding Planners",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Results – Instagram Wedding Planners": {
+      "main": [
+        [
+          {
+            "node": "Process – Instagram Wedding Planners",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process – Instagram Wedding Planners": {
+      "main": [
+        [
+          {
+            "node": "Merge All Results",
+            "type": "main",
+            "index": 7
+          }
+        ]
+      ]
+    },
+    "Apify – Instagram Jeunes Artistes": {
+      "main": [
+        [
+          {
+            "node": "Fetch Results – Instagram Jeunes Artistes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Results – Instagram Jeunes Artistes": {
+      "main": [
+        [
+          {
+            "node": "Process – Instagram Jeunes Artistes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process – Instagram Jeunes Artistes": {
+      "main": [
+        [
+          {
+            "node": "Merge All Results",
+            "type": "main",
+            "index": 8
+          }
+        ]
+      ]
+    },
+    "Apify – Instagram WP Search": {
+      "main": [
+        [
+          {
+            "node": "Fetch Results – Instagram WP Search",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Results – Instagram WP Search": {
+      "main": [
+        [
+          {
+            "node": "Process – Instagram WP Search",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process – Instagram WP Search": {
+      "main": [
+        [
+          {
+            "node": "Merge All Results",
+            "type": "main",
+            "index": 7
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "versionId": "7b6c980e-b527-4a92-a45e-d8ce8ade95d3",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "57863f622f2d8736535d428f1d6969e37372780d9943f9bb182dd61959c2d52f"
+  },
+  "id": "UZNLwcjY4uwA95QL",
+  "tags": []
+}
